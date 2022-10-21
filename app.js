@@ -1,8 +1,17 @@
 const express = require('express');
-const app = express();
+var parseUrl = require('body-parser')
+const app = express()
+
+
+let encodeUrl = parseUrl.urlencoded({ extended: false })
 
 app.get('/', (req, res) => {
-res.send("Welcome to the home page")
+  res.sendFile(__dirname + '/index.html')
+})
+
+app.post('/', encodeUrl, (req, res) => {
+  console.log('Form request:', req.body)
+  res.sendStatus(200)
 })
 app.listen(8080, () => {
     console.log("Server is running..")
